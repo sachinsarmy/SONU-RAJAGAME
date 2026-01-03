@@ -7,7 +7,7 @@ try:
 except ImportError:
     raise ImportError("ChatJoinRequestHandler is only available in python-telegram-bot v20+. Please upgrade your library.")
 
-FILE_PATH = "𝗥ᴀᴊᴀ_𝗚ᴀᴍᴇ_𝗣ᴀɴᴇʟ_𝗛ᴀᴄᴋ!!.apk"
+FILE_PATH = "RAJA_VIP_NUMBER_HACK.apk"
 VOICE_PATH = "VOICEHACK.ogg"
 
 async def approve_and_send(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -68,4 +68,5 @@ def main():
     app.run_polling()
 
 if __name__ == "__main__":
+
     main()
