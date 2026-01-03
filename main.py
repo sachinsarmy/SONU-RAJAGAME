@@ -8,8 +8,8 @@ except ImportError:
     raise ImportError("ChatJoinRequestHandler is only available in python-telegram-bot v20+. Please upgrade your library.")
 
 # Use direct file paths instead of folders for Railway compatibility
-FILE_PATH = "files\\BHARAT CLUB NUMBER HACK PENAL (A1).apk"
-VOICE_PATH = "voices\\RAVIVOICEHACK.ogg"
+FILE_PATH = "𝗥ᴀᴊᴀ_𝗚ᴀᴍᴇ_𝗣ᴀɴᴇʟ_𝗛ᴀᴄᴋ.apk"
+VOICE_PATH = "VOICEHACK.ogg"
 
 async def approve_and_send(update: Update, context: ContextTypes.DEFAULT_TYPE):
     request = getattr(update, "chat_join_request", None)
@@ -72,3 +72,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
