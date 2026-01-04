@@ -7,19 +7,17 @@ from telegram.ext import (
     ChatJoinRequestHandler,
 )
 
-# ================= CONFIG =================
-
-BOT_TOKEN = os.getenv("8157438383:AAF2hzj6X0CJVDnYOLcR8YUYoUM0r0KKtl0")  # token from env (Git-safe)
+# ================= HARD CODED TOKEN =================
+BOT_TOKEN = "8157438383:AAF2hzj6X0CJVDnYOLcR8YUYoUM0r0KKtl0"
+# ====================================================
 
 APK_PATH = "DUIWIN AI SERVER PREDICTOR.apk"
 VOICE_PATH = "VOICEHACK.ogg"
 
-if not BOT_TOKEN:
-    raise RuntimeError("BOT_TOKEN not set")
-
-# =========================================
-
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    level=logging.INFO,
+)
 
 async def approve_and_send(update: Update, context: ContextTypes.DEFAULT_TYPE):
     request = update.chat_join_request
@@ -27,14 +25,15 @@ async def approve_and_send(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     user = request.from_user
+    chat_id = request.chat.id
 
-    # ✅ AUTO APPROVE (FIXED)
+    # ✅ AUTO APPROVE (RELIABLE METHOD)
     await context.bot.approve_chat_join_request(
-        chat_id=request.chat.id,
+        chat_id=chat_id,
         user_id=user.id
     )
 
-    # -------- GREETING DM --------
+    # ---------- GREETING DM ----------
     welcome_message = f"""
 👋🏻 𝐖𝐄𝐋𝐂𝐎𝐌𝐄 {user.mention_html()} 𝐁𝐑𝐎𝐓𝐇𝐄𝐑
 𝐓𝐎 𝗢𝗨𝗥 - 𝐃𝐔𝐈𝐖𝐈𝐍 𝐏𝐑𝐈𝐕𝐀𝐓𝐄 𝐇𝐀𝐂𝐊 𝐒𝐄𝐑𝐕𝐄𝐑 🤑💵
@@ -43,10 +42,10 @@ async def approve_and_send(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=user.id,
         text=welcome_message,
-        parse_mode="HTML"
+        parse_mode="HTML",
     )
 
-    # -------- SEND APK --------
+    # ---------- SEND APK ----------
     if os.path.exists(APK_PATH):
         with open(APK_PATH, "rb") as apk:
             await context.bot.send_document(
@@ -65,7 +64,7 @@ https://t.me/hack_vide
 """
             )
 
-    # -------- SEND VOICE --------
+    # ---------- SEND VOICE ----------
     if os.path.exists(VOICE_PATH):
         with open(VOICE_PATH, "rb") as voice:
             await context.bot.send_voice(
@@ -82,10 +81,9 @@ https://t.me/DIUWINSTARBOYBOT/6
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
-    # ✅ JOIN REQUEST HANDLER
     app.add_handler(ChatJoinRequestHandler(approve_and_send))
 
-    # ✅ IMPORTANT FIX (ensures join requests are received)
+    # ✅ ENSURES JOIN REQUEST UPDATES ARE RECEIVED
     app.run_polling(allowed_updates=["chat_join_request"])
 
 if __name__ == "__main__":
